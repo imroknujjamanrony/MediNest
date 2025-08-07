@@ -44,7 +44,7 @@ export default function Banner() {
   ];
 
   return (
-    <section className="relative w-full h-[100vh] flex flex-col justify-center items-center text-center text-white">
+    <section className="relative w-full h-[100vh] flex flex-col justify-center items-center text-center text-white ">
       {/* Background Image */}
       <Image
         src={doctorImg}
@@ -57,11 +57,11 @@ export default function Banner() {
       <div className="absolute inset-0 bg-black/50" />
 
       {/* Content */}
-      <div className="relative z-10 w-full px-4 space-y-6">
+      <div className="flex  flex-col  justify-center items-center relative z-10 w-full px-4 space-y-6">
         {/* Top: Appointments and Ratings */}
-        <div className="flex items-center justify-center gap-4 bg-white/90 text-black px-4 py-2 rounded-full">
+        <div className="max-w-[350px] text-center flex items-center justify-center gap-4 bg-white/90 text-black px-4 py-2 rounded-full">
           {/* Doctor Avatars */}
-          <div className="max-w-md flex -space-x-2">
+          <div className="w-[100px] flex justify-start -space-x-2">
             {[doctor1, doctor2, doctor3].map((img, idx) => (
               <Image
                 key={idx}
@@ -87,15 +87,15 @@ export default function Banner() {
 
         {/* Headline */}
         <h1 className="text-3xl sm:text-5xl font-bold leading-tight">
-          Discover Health: Find Your Trusted
+          Discover Health: Find Your Trusted <br />
           <GiDoctorFace className="inline text-blue-400" />
           <span className="text-blue-400">Doctors</span> Today
         </h1>
 
         {/* Search Bar */}
-        <div className="flex flex-col md:flex-row items-center w-full bg-white rounded-full shadow overflow-hidden">
+        <div className="flex flex-col md:flex-row items-stretch md:items-center text-black max-w-2xl w-full bg-white rounded-lg md:rounded-full shadow overflow-hidden mx-auto p-2 gap-2 md:gap-0">
           {/* Search */}
-          <div className="flex items-center flex-1 px-4 py-2">
+          <div className="flex items-center flex-1 px-4 py-2 bg-white rounded-md md:rounded-none">
             <FaSearch className="text-blue-600 mr-2" />
             <input
               type="text"
@@ -103,24 +103,34 @@ export default function Banner() {
               className="w-full outline-none placeholder-gray-500 text-sm"
             />
           </div>
+
+          {/* Divider */}
           <div className="hidden md:block h-6 w-px bg-gray-300" />
+
           {/* Location */}
-          <div className="flex items-center px-4 py-2">
+          <div className="flex items-center px-4 py-2 bg-white rounded-md md:rounded-none">
             <FaMapMarkerAlt className="text-blue-600 mr-2" />
             <input
               type="text"
               placeholder="Location"
-              className="w-32 md:w-48 outline-none placeholder-gray-500 text-sm"
+              className="w-full md:w-48 outline-none placeholder-gray-500 text-sm"
             />
           </div>
+
+          {/* Divider */}
           <div className="hidden md:block h-6 w-px bg-gray-300" />
+
           {/* Date */}
-          <div className="flex items-center px-4 py-2">
+          <div className="flex items-center px-4 py-2 bg-white rounded-md md:rounded-none">
             <FaCalendarAlt className="text-blue-600 mr-2" />
-            <input type="date" className="w-28 md:w-36 outline-none text-sm" />
+            <input
+              type="date"
+              className="w-full md:w-36 outline-none text-sm"
+            />
           </div>
+
           {/* Button */}
-          <Button className="rounded-none rounded-r-full h-full px-6 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white text-sm font-semibold">
+          <Button className="w-full md:w-auto rounded-md md:rounded-none md:rounded-r-full px-6 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white text-sm font-semibold">
             Search
           </Button>
         </div>

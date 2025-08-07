@@ -23,7 +23,7 @@ const specialties = [
     doctors: 254,
     icon: <FaHeartbeat />,
     image:
-      "https://images.unsplash.com/photo-1588776814546-ec7e4b6f98f5?q=80&w=600",
+      "https://img.freepik.com/free-photo/beautiful-young-female-doctor-looking-camera-office_1301-7807.jpg",
   },
   {
     name: "Orthopedics",
@@ -78,9 +78,15 @@ const specialties = [
 
 const TopSpecialist = () => {
   return (
-    <section className="top-specialist-container">
-      <h3 className="section-subtitle">Top Specialties</h3>
-      <h2 className="section-title">Highlighting the Care & Support</h2>
+    <section className="py-12 mt-10 px-4 sm:px-6 lg:px-12 bg-white text-gray-800">
+      <div className="text-center mb-10">
+        <h3 className="text-lg text-blue-600 font-semibold uppercase tracking-wide">
+          Top Specialties
+        </h3>
+        <h2 className="text-3xl sm:text-4xl font-bold mt-2">
+          Highlighting the Care & Support
+        </h2>
+      </div>
 
       <Swiper
         slidesPerView={1}
@@ -91,20 +97,24 @@ const TopSpecialist = () => {
         }}
         pagination={{ clickable: true }}
         modules={[Pagination]}
-        className="top-specialist-swiper"
+        className="!pb-10"
       >
         {specialties.map((item, index) => (
           <SwiperSlide key={index}>
-            <div className="specialist-card">
+            <div className="relative group rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
               <img
                 src={item.image}
                 alt={item.name}
-                className="specialist-image"
+                className="w-full h-64 object-cover"
               />
-              <div className="specialist-icon">{item.icon}</div>
-              <div className="specialist-info">
-                <h4>{item.name}</h4>
-                <p>{item.doctors} Doctors</p>
+              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition duration-300 flex items-center justify-center">
+                <div className="text-white text-4xl group-hover:scale-110 transform transition duration-300">
+                  {item.icon}
+                </div>
+              </div>
+              <div className="absolute bottom-0 w-full bg-white/90 text-center py-3 px-2">
+                <h4 className="text-lg font-semibold">{item.name}</h4>
+                <p className="text-sm text-gray-600">{item.doctors} Doctors</p>
               </div>
             </div>
           </SwiperSlide>

@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 // WhyUs.tsx
 "use client";
 

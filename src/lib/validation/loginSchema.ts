@@ -1,7 +1,9 @@
+
 import { z } from "zod";
 
-export const loginFormSchema = z.object({
-  username: z.string().min(2, { message: "ইউজারনেম কমপক্ষে ২ অক্ষরের হতে হবে।" }),
-});
+export const loginFormSchema=z.object({
+email:z.string().email('invalid email address'),
+password:z.string().min(6,'minimum password should be 6 characters')
+})
 
-export type FormValues = z.infer<typeof loginFormSchema>;
+export type LoginFormValue=z.infer<typeof loginFormSchema>

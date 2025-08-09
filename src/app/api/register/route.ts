@@ -1,3 +1,4 @@
+
 import { dbConnect } from "@/lib/dbConnect";
 import { User } from "@/models/user";
 
@@ -7,6 +8,8 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
     const { name, email, password } = body;
+
+    console.log("✅ Received registration request:", body);
 
     if (!name || !email || !password) {
       return NextResponse.json({ error: "All fields are required." }, { status: 400 });

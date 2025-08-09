@@ -11,7 +11,7 @@ if (!dbName) {
   throw new Error("❌ DB_NAME env variable missing");
 }
 
-// Cache system for mongoose (Next.js hot reload এ সমস্যা এড়ানোর জন্য)
+
 let isConnected = false;
 
 export const dbConnect = async () => {

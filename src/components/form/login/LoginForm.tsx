@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { signIn } from "next-auth/react";
 import {
   Form,
   FormControl,
@@ -23,8 +24,18 @@ export default function LoginForm() {
     },
   });
 
-  const onSubmit = (data: LoginFormValue) => {
-    console.log("data from login form", data);
+  const onSubmit = async (data: LoginFormValue) => {
+    const res = await signIn("credentials", {
+      redirect: false,
+      email: data.email,
+      password: data.password,
+    });
+
+    if (res?.error) {
+      console.error("Login failed:", res.error);
+    } else {
+      console.log("✅ Login success");
+    }
   };
 
   return (

@@ -1,23 +1,25 @@
-'use client'
+"use client";
 
 import Image from "next/image";
-import logo from '../../../public/logo.png';
+import logo from "../../../public/logo.png";
 import Link from "next/link";
 import { Button } from "../ui/button";
-import { Menu, X } from 'lucide-react';
+import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import { useSession } from "next-auth/react";
 
 export default function Navbar() {
+  const { data: session } = useSession();
   const [isOpen, setIsOpen] = useState(false);
 
   // ⚠️ This should eventually come from your auth context or hook
   const user = true; // or null / false if not logged in
 
   const links = [
-    { path: '/', label: 'Home' },
-    { path: '/doctor', label: 'Doctor' },
-    { path: '/contact', label: 'Contact' },
-    { path: '/dashboard', label: 'Dashboard' },
+    { path: "/", label: "Home" },
+    { path: "/doctor", label: "Doctor" },
+    { path: "/contact", label: "Contact" },
+    { path: "/dashboard", label: "Dashboard" },
   ];
 
   return (
@@ -32,6 +34,7 @@ export default function Navbar() {
             {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
 
+          <div className="text-red-500">{session?.user.name}</div>
           <Link href="/" className="flex items-center gap-2">
             <Image src={logo} alt="logo" width={40} height={40} />
             <span className="text-2xl font-bold text-blue-600">MediNest</span>

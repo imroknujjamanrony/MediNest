@@ -33,6 +33,7 @@ export default function RegisterForm() {
     try {
       axios.post("/api/register", data);
       console.log("✅ Registration successful");
+      form.reset();
     } catch (error) {
       console.error("❌ Error in registration:", error);
     }

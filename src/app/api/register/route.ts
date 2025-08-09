@@ -1,6 +1,7 @@
 
 import { dbConnect } from "@/lib/dbConnect";
 import { User } from "@/models/user";
+import bcrypt from "bcryptjs";
 
 import { NextResponse } from "next/server";
 
@@ -23,8 +24,13 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Email already registered." }, { status: 409 });
     }
 
+ //hash password using bcryptjs
+ const salt=bcrypt.genSaltSync(10);
+ const hashedPassword=bcrypt.hashSync(password,salt)
+
     // ✅ Save new user via model
-    const newUser = await User.create({ name, email, password });
+    const newUser = await User.create({ name, email, password:hashedPassword,role:'patient' });
+   
 
     return NextResponse.json(
       { success: true, insertedId: newUser._id },

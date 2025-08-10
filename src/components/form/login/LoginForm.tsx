@@ -26,10 +26,12 @@ export default function LoginForm() {
 
   const onSubmit = async (data: LoginFormValue) => {
     const res = await signIn("credentials", {
-      redirect: false,
+      redirect: true,
       email: data.email,
       password: data.password,
     });
+
+    form.reset();
 
     if (res?.error) {
       console.error("Login failed:", res.error);

@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { loginFormSchema, LoginFormValue } from "@/lib/validation/loginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { FaGoogle } from "react-icons/fa";
 
 export default function LoginForm() {
   const form = useForm<LoginFormValue>({
@@ -96,6 +97,10 @@ export default function LoginForm() {
             </Button>
           </form>
         </Form>
+        <Button onClick={() => signIn("google")}>
+          {" "}
+          <FaGoogle></FaGoogle> Google Login
+        </Button>
       </div>
     </div>
   );

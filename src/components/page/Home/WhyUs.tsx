@@ -115,7 +115,7 @@ export default function WhyUs() {
                 </AccordionTrigger>
                 <AccordionContent className="text-gray-300">
                   To deliver exceptional healthcare experiences by prioritizing
-                  our patients' unique needs and fostering trust through every
+                  our patients unique needs and fostering trust through every
                   interaction.
                 </AccordionContent>
               </AccordionItem>

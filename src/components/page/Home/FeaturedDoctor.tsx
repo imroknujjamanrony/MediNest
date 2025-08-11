@@ -11,7 +11,6 @@ import {
   FaStar,
   FaMapMarkerAlt,
   FaRegHeart,
-  FaHeart,
   FaCalendarAlt,
 } from "react-icons/fa";
 

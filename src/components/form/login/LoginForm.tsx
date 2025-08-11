@@ -15,6 +15,7 @@ import { loginFormSchema, LoginFormValue } from "@/lib/validation/loginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { FaGoogle } from "react-icons/fa";
+import Link from "next/link";
 
 export default function LoginForm() {
   const form = useForm<LoginFormValue>({
@@ -30,6 +31,7 @@ export default function LoginForm() {
       redirect: true,
       email: data.email,
       password: data.password,
+      callbackUrl: "/", // ✅ লগইন শেষে / এ যাবে
     });
 
     form.reset();
@@ -97,10 +99,38 @@ export default function LoginForm() {
             </Button>
           </form>
         </Form>
-        <Button onClick={() => signIn("google")}>
-          {" "}
-          <FaGoogle></FaGoogle> Google Login
+
+        {/* Divider */}
+        <div className="my-6 flex items-center">
+          <hr className="flex-grow border-gray-300" />
+          <span className="mx-3 text-gray-500 text-sm">OR</span>
+          <hr className="flex-grow border-gray-300" />
+        </div>
+
+        {/* Google Login Button */}
+        <Button
+          onClick={() =>
+            signIn("google", {
+              callbackUrl: "/", // ✅ Google login করলেও / এ যাবে
+            })
+          }
+          variant="outline"
+          className="w-full flex items-center justify-center gap-2 border-gray-300 bg-white hover:bg-gray-50"
+        >
+          <FaGoogle className="text-red-500" />
+          <span className="text-gray-700 font-medium">Sign in with Google</span>
         </Button>
+
+        {/* Register Link */}
+        <p className="mt-6 text-center text-gray-600 text-sm">
+          Don’t have an account?{" "}
+          <Link
+            href="/register"
+            className="text-indigo-600 font-medium hover:underline"
+          >
+            Register here
+          </Link>
+        </p>
       </div>
     </div>
   );

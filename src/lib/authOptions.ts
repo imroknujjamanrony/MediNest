@@ -1,10 +1,9 @@
-import { gApp } from './authOptions';
+
 
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import type { NextAuthOptions } from "next-auth";
 import { collection, getCollection } from "./getCollection";
-
 
 
 export const authOptions: NextAuthOptions = {

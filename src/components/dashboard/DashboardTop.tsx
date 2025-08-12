@@ -12,12 +12,16 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { SidebarTrigger } from "../ui/sidebar";
 
 export default function DashboardTop() {
   return (
     <div className="flex items-center justify-between w-11/12 mx-auto">
       {/* left side logo and search */}
       <div className="flex items-center gap-2 ">
+        <div>
+          <SidebarTrigger></SidebarTrigger>
+        </div>
         <div className="flex items-center">
           <Image src={navLogo} alt="logo" width={50} height={50}></Image>
           <h1 className="text-2xl font-bold">MediNest</h1>

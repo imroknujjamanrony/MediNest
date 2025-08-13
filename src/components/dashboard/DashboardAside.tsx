@@ -3,6 +3,7 @@ import {
   Inbox,
   PanelTopInactiveIcon,
   StarIcon,
+  User,
   User2,
 } from "lucide-react";
 
@@ -40,7 +41,7 @@ export default function DashboardAside() {
     {
       title: "Profile",
       url: "/dashboard/admin/profile",
-      icon: Inbox,
+      icon: User,
     },
     {
       title: "Total Users",
@@ -68,6 +69,8 @@ export default function DashboardAside() {
       icon: StarIcon,
     },
   ];
+
+  //for doctor dashboard
   const doctorItems = [
     {
       title: "Home",
@@ -93,6 +96,36 @@ export default function DashboardAside() {
     {
       title: "Doctors",
       url: "/dashboard/doctors",
+      icon: GiDoctorFace,
+    },
+  ];
+
+  //for patient dashboard
+  const patientItems = [
+    {
+      title: "Home",
+      url: "/",
+      icon: Home,
+    },
+    {
+      title: "Profile",
+      url: "/dashboard/patient/my-profile",
+      icon: Inbox,
+    },
+    {
+      title: "My Prescriptions",
+      url: "/dashboard/patient/my-prescriptions",
+      icon: User2,
+    },
+    {
+      title: "Appointments",
+      url: "/dashboard/patient/my-appointments",
+      icon: GiStitchedWound,
+    },
+
+    {
+      title: "Doctors",
+      url: "/dashboard/patient/doctors",
       icon: GiDoctorFace,
     },
   ];

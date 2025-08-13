@@ -16,7 +16,8 @@ export default function Navbar() {
     { path: "/", label: "Home" },
     { path: "/doctor", label: "Doctor" },
     { path: "/contact", label: "Contact" },
-    { path: "/dashboard", label: "Dashboard" },
+    { path: "/dashboard/patient", label: "Dashboard" },
+    { path: "/dashboard/patient/apply-for-doctor", label: "Apply-Doctor" },
   ];
 
   return (

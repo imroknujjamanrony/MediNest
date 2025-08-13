@@ -1,4 +1,10 @@
-import { Calendar, Home, Inbox, Search, Settings, User2 } from "lucide-react";
+import {
+  Home,
+  Inbox,
+  PanelTopInactiveIcon,
+  StarIcon,
+  User2,
+} from "lucide-react";
 
 import {
   Sidebar,
@@ -20,9 +26,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import Link from "next/link";
+import { GiDoctorFace, GiStitchedWound } from "react-icons/gi";
 
 export default function DashboardAside() {
-  const items = [
+  //for admin dashboard
+  const adminItems = [
     {
       title: "Home",
       url: "/",
@@ -34,19 +43,57 @@ export default function DashboardAside() {
       icon: Inbox,
     },
     {
-      title: "Calendar",
-      url: "#",
-      icon: Calendar,
+      title: "Total Users",
+      url: "/dashboard/users",
+      icon: User2,
     },
     {
-      title: "Search",
-      url: "#",
-      icon: Search,
+      title: "Appointments",
+      url: "/dashboard/appointments",
+      icon: GiStitchedWound,
     },
     {
-      title: "Settings",
-      url: "#",
-      icon: Settings,
+      title: "Patients",
+      url: "/dashboard/patients",
+      icon: PanelTopInactiveIcon,
+    },
+    {
+      title: "Doctors",
+      url: "/dashboard/doctors",
+      icon: GiDoctorFace,
+    },
+    {
+      title: "Reviews",
+      url: "/dashboard/reviews",
+      icon: StarIcon,
+    },
+  ];
+  const doctorItems = [
+    {
+      title: "Home",
+      url: "/",
+      icon: Home,
+    },
+    {
+      title: "Profile",
+      url: "/dashboard/doctor/profile",
+      icon: Inbox,
+    },
+    {
+      title: "Total Users",
+      url: "/dashboard/users",
+      icon: User2,
+    },
+    {
+      title: "Appointments",
+      url: "/dashboard/doctor/appointments",
+      icon: GiStitchedWound,
+    },
+
+    {
+      title: "Doctors",
+      url: "/dashboard/doctors",
+      icon: GiDoctorFace,
     },
   ];
   return (
@@ -57,13 +104,13 @@ export default function DashboardAside() {
           <SidebarGroupLabel>Application</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {items.map((item) => (
+              {adminItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <a href={item.url}>
+                    <Link href={item.url}>
                       <item.icon />
                       <span>{item.title}</span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}

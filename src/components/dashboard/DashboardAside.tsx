@@ -39,32 +39,32 @@ export default function DashboardAside() {
     },
     {
       title: "Profile",
-      url: "/dashboard/profile",
+      url: "/dashboard/admin/profile",
       icon: Inbox,
     },
     {
       title: "Total Users",
-      url: "/dashboard/users",
+      url: "/dashboard/admin/users",
       icon: User2,
     },
     {
       title: "Appointments",
-      url: "/dashboard/appointments",
+      url: "/dashboard/admin/appointments",
       icon: GiStitchedWound,
     },
     {
       title: "Patients",
-      url: "/dashboard/patients",
+      url: "/dashboard/admin/patients",
       icon: PanelTopInactiveIcon,
     },
     {
       title: "Doctors",
-      url: "/dashboard/doctors",
+      url: "/dashboard/admin/doctors",
       icon: GiDoctorFace,
     },
     {
       title: "Reviews",
-      url: "/dashboard/reviews",
+      url: "/dashboard/admin/reviews",
       icon: StarIcon,
     },
   ];

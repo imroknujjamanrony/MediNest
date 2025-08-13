@@ -25,12 +25,12 @@ export default function DashboardAside() {
   const items = [
     {
       title: "Home",
-      url: "#",
+      url: "/",
       icon: Home,
     },
     {
-      title: "Inbox",
-      url: "#",
+      title: "Profile",
+      url: "/dashboard/profile",
       icon: Inbox,
     },
     {

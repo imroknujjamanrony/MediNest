@@ -31,7 +31,7 @@ export default function LoginForm() {
       redirect: true,
       email: data.email,
       password: data.password,
-      callbackUrl: "/", // ✅ লগইন শেষে / এ যাবে
+      callbackUrl: "/",
     });
 
     form.reset();

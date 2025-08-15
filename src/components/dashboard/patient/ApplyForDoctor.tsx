@@ -1,10 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Select,
   SelectContent,
@@ -12,31 +9,84 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useForm, useFieldArray } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+// import { useDispatch } from "react-redux";
 
-export default function ApplyDoctorForm() {
-  const [schedule, setSchedule] = useState([
-    { day: "", startTime: "", endTime: "" },
-  ]);
+// ✅ Validation Schema
+const doctorFormSchema = z.object({
+  fullName: z.string().min(3, "Full name is required"),
+  email: z.string().email("Invalid email"),
+  phone: z.string().min(6, "Phone number required"),
+  dob: z.string().nonempty("Date of birth required"),
+  specialization: z.string().nonempty("Select specialization"),
+  licenseNumber: z.string().nonempty("License number required"),
+  licenseIssueDate: z.string().nonempty("Issue date required"),
+  licenseExpiryDate: z.string().nonempty("Expiry date required"),
+  experience: z.string().nonempty("Experience required"),
+  workplace: z.string().nonempty("Workplace name required"),
+  nidUrl: z.string().url("Enter valid URL"),
+  degreeUrl: z.string().url("Enter valid URL"),
+  bmdcUrl: z.string().url("Enter valid URL"),
+  profileUrl: z.string().url("Enter valid URL"),
+  fee: z.string().nonempty("Fee required"),
+  schedule: z
+    .array(
+      z.object({
+        day: z.string().nonempty(),
+        startTime: z.string().nonempty(),
+        endTime: z.string().nonempty(),
+      })
+    )
+    .min(1, "At least one schedule is required"),
+});
 
-  const addSchedule = () => {
-    setSchedule([...schedule, { day: "", startTime: "", endTime: "" }]);
-  };
+type DoctorFormType = z.infer<typeof doctorFormSchema>;
 
-  const updateSchedule = (index: number, field: string, value: string) => {
-    const updated = [...schedule];
-    updated[index][field as keyof (typeof updated)[number]] = value;
-    setSchedule(updated);
-  };
+export default function DoctorApplicationForm() {
+  //   const dispatch = useDispatch();
 
-  const removeSchedule = (index: number) => {
-    const updated = schedule.filter((_, i) => i !== index);
-    setSchedule(updated);
-  };
+  const form = useForm<DoctorFormType>({
+    resolver: zodResolver(doctorFormSchema),
+    defaultValues: {
+      fullName: "",
+      email: "",
+      phone: "",
+      dob: "",
+      specialization: "",
+      licenseNumber: "",
+      licenseIssueDate: "",
+      licenseExpiryDate: "",
+      experience: "",
+      workplace: "",
+      nidUrl: "",
+      degreeUrl: "",
+      bmdcUrl: "",
+      profileUrl: "",
+      fee: "",
+      schedule: [{ day: "", startTime: "", endTime: "" }],
+    },
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // TODO: API call here
-    console.log("Form submitted");
+  const { fields, append, remove } = useFieldArray({
+    control: form.control,
+    name: "schedule",
+  });
+
+  const onSubmit = (data: DoctorFormType) => {
+    console.log("✅ Form Data:", data);
+    // dispatch(addDoctorApplication(data)); // Redux এ পাঠানো
+    form.reset();
   };
 
   return (
@@ -48,162 +98,351 @@ export default function ApplyDoctorForm() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Basic Info */}
-            <section>
-              <h2 className="text-lg font-semibold mb-4">Basic Info</h2>
-              <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <Label>Full Name</Label>
-                  <Input placeholder="Enter full name" />
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              {/* Basic Info */}
+              <section>
+                <h2 className="text-lg font-semibold mb-4">Basic Info</h2>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <FormField
+                    control={form.control}
+                    name="fullName"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Full Name</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Enter full name" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Email</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="email"
+                            placeholder="Enter email"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="phone"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Phone Number</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Enter phone number" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="dob"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Date of Birth</FormLabel>
+                        <FormControl>
+                          <Input type="date" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                 </div>
-                <div>
-                  <Label>Email</Label>
-                  <Input type="email" placeholder="Enter email" />
-                </div>
-                <div>
-                  <Label>Phone Number</Label>
-                  <Input placeholder="Enter phone number" />
-                </div>
-                <div>
-                  <Label>Date of Birth</Label>
-                  <Input type="date" />
-                </div>
-              </div>
-            </section>
+              </section>
 
-            {/* Professional Info */}
-            <section>
-              <h2 className="text-lg font-semibold mb-4">Professional Info</h2>
-              <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <Label>Specialization</Label>
-                  <Select>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select specialization" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="cardiology">Cardiology</SelectItem>
-                      <SelectItem value="neurology">Neurology</SelectItem>
-                      <SelectItem value="pediatrics">Pediatrics</SelectItem>
-                      <SelectItem value="surgery">Surgery</SelectItem>
-                    </SelectContent>
-                  </Select>
+              {/* Professional Info */}
+              <section>
+                <h2 className="text-lg font-semibold mb-4">
+                  Professional Info
+                </h2>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <FormField
+                    control={form.control}
+                    name="specialization"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Specialization</FormLabel>
+                        <Select
+                          onValueChange={field.onChange}
+                          value={field.value}
+                        >
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select specialization" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="cardiology">
+                              Cardiology
+                            </SelectItem>
+                            <SelectItem value="neurology">Neurology</SelectItem>
+                            <SelectItem value="pediatrics">
+                              Pediatrics
+                            </SelectItem>
+                            <SelectItem value="surgery">Surgery</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="licenseNumber"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Medical License Number</FormLabel>
+                        <FormControl>
+                          <Input placeholder="BMDC Reg. No." {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="licenseIssueDate"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>License Issue Date</FormLabel>
+                        <FormControl>
+                          <Input type="date" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="licenseExpiryDate"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>License Expiry Date</FormLabel>
+                        <FormControl>
+                          <Input type="date" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="experience"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Years of Experience</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="number"
+                            placeholder="e.g. 5"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="workplace"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Current Workplace / Hospital Name</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="Enter workplace name"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                 </div>
-                <div>
-                  <Label>Medical License Number</Label>
-                  <Input placeholder="BMDC Reg. No." />
-                </div>
-                <div>
-                  <Label>License Issue Date</Label>
-                  <Input type="date" />
-                </div>
-                <div>
-                  <Label>License Expiry Date</Label>
-                  <Input type="date" />
-                </div>
-                <div>
-                  <Label>Years of Experience</Label>
-                  <Input type="number" placeholder="e.g. 5" />
-                </div>
-                <div>
-                  <Label>Current Workplace / Hospital Name</Label>
-                  <Input placeholder="Enter workplace name" />
-                </div>
-              </div>
-            </section>
+              </section>
 
-            {/* Documents */}
-            <section>
-              <h2 className="text-lg font-semibold mb-4">Documents (URLs)</h2>
-              <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <Label>National ID / Passport URL</Label>
-                  <Input placeholder="https://..." />
+              {/* Documents */}
+              <section>
+                <h2 className="text-lg font-semibold mb-4">Documents (URLs)</h2>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <FormField
+                    control={form.control}
+                    name="nidUrl"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>National ID / Passport URL</FormLabel>
+                        <FormControl>
+                          <Input placeholder="https://..." {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="degreeUrl"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Medical Degree Certificate URL</FormLabel>
+                        <FormControl>
+                          <Input placeholder="https://..." {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="bmdcUrl"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>BMDC Registration Certificate URL</FormLabel>
+                        <FormControl>
+                          <Input placeholder="https://..." {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="profileUrl"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Profile Photo URL</FormLabel>
+                        <FormControl>
+                          <Input placeholder="https://..." {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                 </div>
-                <div>
-                  <Label>Medical Degree Certificate URL</Label>
-                  <Input placeholder="https://..." />
-                </div>
-                <div>
-                  <Label>BMDC Registration Certificate URL</Label>
-                  <Input placeholder="https://..." />
-                </div>
-                <div>
-                  <Label>Profile Photo URL</Label>
-                  <Input placeholder="https://..." />
-                </div>
-              </div>
-            </section>
+              </section>
 
-            {/* Availability */}
-            <section>
-              <h2 className="text-lg font-semibold mb-4">Weekly Schedule</h2>
-              {schedule.map((slot, index) => (
-                <div
-                  key={index}
-                  className="flex flex-col md:flex-row gap-2 items-center mb-2"
+              {/* Weekly Schedule */}
+              <section>
+                <h2 className="text-lg font-semibold mb-4">Weekly Schedule</h2>
+                {fields.map((field, index) => (
+                  <div
+                    key={field.id}
+                    className="flex flex-col md:flex-row gap-2 items-center mb-2"
+                  >
+                    <FormField
+                      control={form.control}
+                      name={`schedule.${index}.day`}
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <Select
+                              onValueChange={field.onChange}
+                              value={field.value}
+                            >
+                              <SelectTrigger className="w-full md:w-40">
+                                <SelectValue placeholder="Day" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                {[
+                                  "Monday",
+                                  "Tuesday",
+                                  "Wednesday",
+                                  "Thursday",
+                                  "Friday",
+                                  "Saturday",
+                                  "Sunday",
+                                ].map((day) => (
+                                  <SelectItem key={day} value={day}>
+                                    {day}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name={`schedule.${index}.startTime`}
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <Input type="time" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name={`schedule.${index}.endTime`}
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <Input type="time" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <Button
+                      type="button"
+                      variant="destructive"
+                      onClick={() => remove(index)}
+                    >
+                      Remove
+                    </Button>
+                  </div>
+                ))}
+                <Button
+                  type="button"
+                  variant="secondary"
+                  onClick={() =>
+                    append({ day: "", startTime: "", endTime: "" })
+                  }
                 >
-                  <Select
-                    onValueChange={(val) => updateSchedule(index, "day", val)}
-                  >
-                    <SelectTrigger className="w-full md:w-40">
-                      <SelectValue placeholder="Day" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {[
-                        "Monday",
-                        "Tuesday",
-                        "Wednesday",
-                        "Thursday",
-                        "Friday",
-                        "Saturday",
-                        "Sunday",
-                      ].map((day) => (
-                        <SelectItem key={day} value={day}>
-                          {day}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <Input
-                    type="time"
-                    value={slot.startTime}
-                    onChange={(e) =>
-                      updateSchedule(index, "startTime", e.target.value)
-                    }
-                  />
-                  <Input
-                    type="time"
-                    value={slot.endTime}
-                    onChange={(e) =>
-                      updateSchedule(index, "endTime", e.target.value)
-                    }
-                  />
-                  <Button
-                    type="button"
-                    variant="destructive"
-                    onClick={() => removeSchedule(index)}
-                  >
-                    Remove
-                  </Button>
-                </div>
-              ))}
-              <Button type="button" variant="secondary" onClick={addSchedule}>
-                + Add Day
+                  + Add Day
+                </Button>
+              </section>
+
+              {/* Fee */}
+              <section>
+                <h2 className="text-lg font-semibold mb-4">Consultation Fee</h2>
+                <FormField
+                  control={form.control}
+                  name="fee"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                          type="number"
+                          placeholder="Enter fee amount"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </section>
+
+              <Button type="submit" className="w-full">
+                Submit Application
               </Button>
-            </section>
-
-            {/* Fee */}
-            <section>
-              <h2 className="text-lg font-semibold mb-4">Consultation Fee</h2>
-              <Input type="number" placeholder="Enter fee amount" />
-            </section>
-
-            <Button type="submit" className="w-full">
-              Submit Application
-            </Button>
-          </form>
+            </form>
+          </Form>
         </CardContent>
       </Card>
     </div>

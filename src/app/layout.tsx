@@ -5,6 +5,7 @@ import Navbar from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
 import { Toaster } from "@/components/ui/sonner";
 import { Providers } from "@/providers/providers";
+import { ReduxProvider } from "@/providers/ReduxProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,12 +32,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Providers>
-          <Navbar></Navbar>
-          {children}
-          <Toaster></Toaster>
-          <Footer></Footer>
-        </Providers>
+        <ReduxProvider>
+          <Providers>
+            <Navbar></Navbar>
+            {children}
+            <Toaster></Toaster>
+            <Footer></Footer>
+          </Providers>
+        </ReduxProvider>
       </body>
     </html>
   );

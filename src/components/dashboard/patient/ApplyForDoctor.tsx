@@ -61,8 +61,9 @@ export default function DoctorApplicationForm() {
     console.log("✅ Form Data:", data);
     // dispatch(addDoctorApplication(data));
     form.reset();
+    form.reset();
   };
-
+  //changes for commit
   return (
     <div className="max-w-4xl mx-auto p-4">
       <Card>

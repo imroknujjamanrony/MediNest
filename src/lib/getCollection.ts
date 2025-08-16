@@ -18,5 +18,6 @@ export const getCollection = async (collectionName: string) => {
  */
 export const collection = {
   user_collection: "users",
+  applyForDoctor: 'applyForDoctors'
   
 };

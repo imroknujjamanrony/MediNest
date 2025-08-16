@@ -10,7 +10,7 @@ export const doctorApi = createApi({
     // POST /api/doctors
     saveDoctorApplication: builder.mutation<DoctorFormApplication, DoctorFormApplication>({
       query: (doctorData) => ({
-        url: "/doctors",
+        url: "/apply-for-doctor",
         method: "POST",
         body: doctorData,
       }),

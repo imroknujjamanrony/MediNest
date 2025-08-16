@@ -12,7 +12,7 @@ export type FormValues = {
   nidUrl: string;
   degreeUrl: string;
   bmdcUrl: string;
-  photoUrl: string;
+ profileUrl: string; 
   consultationFee: number;
   schedule: { day: string; startTime: string; endTime: string }[];
 };

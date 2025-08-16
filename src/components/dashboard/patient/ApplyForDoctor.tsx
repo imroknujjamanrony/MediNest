@@ -24,10 +24,10 @@ import {
   doctorFormSchema,
   DoctorFormType,
 } from "@/lib/validation/doctorFormSchema";
-// import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 export default function DoctorApplicationForm() {
-  //   const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const form = useForm<DoctorFormType>({
     resolver: zodResolver(doctorFormSchema),
@@ -58,7 +58,7 @@ export default function DoctorApplicationForm() {
 
   const onSubmit = (data: DoctorFormType) => {
     console.log("✅ Form Data:", data);
-    // dispatch(addDoctorApplication(data));
+    dispatch(Do(data));
     form.reset();
   };
 

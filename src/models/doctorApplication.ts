@@ -54,7 +54,7 @@ const doctorApplicationSchema = new Schema<IDoctorApplication>(
     status: { type: String, enum: ["pending", "approved", "rejected"], default: "pending" },
     createdAt: { type: Date, default: Date.now },
   },
-  { collection: "applyForDoctors" } // তুমি আগে যে নাম দিয়েছিলে
+  { collection: "applyForDoctors" } 
 );
 
 export const DoctorApplication =

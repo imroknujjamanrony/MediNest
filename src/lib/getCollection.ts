@@ -2,7 +2,7 @@
 import mongoose from "mongoose";
 import { dbConnect } from "./dbConnect";
 
-//reuseable getCollection function
+
 export const getCollection = async (collectionName: string) => {
   await dbConnect(); // ensure connection
   const db = mongoose.connection.db; // get native mongo db instance

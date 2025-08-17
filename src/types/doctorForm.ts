@@ -18,7 +18,7 @@ export interface DoctorFormApplication {
   nidUrl: string;
   degreeUrl: string;
   bmdcUrl: string;
-  profileUrl: string;          // <-- profileUrl use করবো
-  consultationFee: number;     // <-- fee → number
+  profileUrl: string;         
+  consultationFee: number;    
   schedule: Schedule[];
 }

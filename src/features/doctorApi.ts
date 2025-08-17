@@ -19,7 +19,7 @@ export const doctorApi = createApi({
 
     // GET /api/doctors
     getDoctors: builder.query<DoctorFormApplication[], void>({
-      query: () => "/doctors",
+      query: () => "/apply-for-doctor",
       providesTags: ["Doctor"],
     }),
   }),

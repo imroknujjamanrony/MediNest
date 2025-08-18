@@ -22,10 +22,24 @@ export const doctorApi = createApi({
       query: () => "/apply-for-doctor",
       providesTags: ["Doctor"],
     }),
+
+    // PATCH /api/apply-for-doctor/:id
+    updateDoctorStatus: builder.mutation<
+      DoctorFormApplication,
+      { id: string; status: string }>({
+      query: ({ id, status }) => ({
+        url: `/apply-for-doctor/${id}`,
+        method: "PATCH",
+        body: { status },
+      }),
+      invalidatesTags: ["Doctor"],
+    }),
+
   }),
 });
 
 export const {
   useSaveDoctorApplicationMutation,
+   useUpdateDoctorStatusMutation,
   useGetDoctorsQuery,
 } = doctorApi;

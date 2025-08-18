@@ -1,25 +1,42 @@
 
-
-
 import { NextResponse } from "next/server";
 import { DoctorApplication } from "@/models/doctorApplication";
 import { dbConnect } from "@/lib/dbConnect";
 
+// export async function GET() {
+//   try {
+//     await dbConnect();
+//     console.log("✅ DB Connected in GET Doctors API");
+
+//     const doctors = await DoctorApplication.find().lean();
+//     console.log("✅ Doctors Fetched:", doctors);
+
+//     return NextResponse.json(doctors, { status: 200 });
+//   } catch (error: any) {
+//     console.error("❌ Error in GET /api/doctors:", error);
+//     return NextResponse.json({ error: error.message }, { status: 500 });
+//   }
+// }
+
+
 export async function GET() {
   try {
     await dbConnect();
-    console.log("✅ DB Connected in GET Doctors API");
-
-    const doctors = await DoctorApplication.find().lean();
-    console.log("✅ Doctors Fetched:", doctors);
-
+    const doctors = await DoctorApplication.find()
+      .populate({
+        path: "userId",
+        select: "role email", // Include both role and email
+        model: "User"
+      })
+      .lean();
+      
+    console.log("Fetched doctors:", doctors);
     return NextResponse.json(doctors, { status: 200 });
   } catch (error: any) {
-    console.error("❌ Error in GET /api/doctors:", error);
+    console.error("GET Error:", error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
-
 
 // for POST method
 export async function POST(req: Request) {
@@ -40,3 +57,5 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: error.message }, { status: 400 });
   }
 }
+
+

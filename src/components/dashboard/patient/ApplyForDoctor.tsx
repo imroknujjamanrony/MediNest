@@ -661,7 +661,9 @@ export default function DoctorApplicationForm() {
                             <SelectItem value="cardiology">
                               CardiologistCardiologistCardiologist
                             </SelectItem>
-                            <SelectItem value="neurology">Neurology</SelectItem>
+                            <SelectItem value="neurology">
+                              NeurologyNeurologyNeurology
+                            </SelectItem>
                             <SelectItem value="pediatrics">
                               Pediatrics
                             </SelectItem>

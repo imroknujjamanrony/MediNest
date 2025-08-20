@@ -659,11 +659,9 @@ export default function DoctorApplicationForm() {
                           </SelectTrigger>
                           <SelectContent>
                             <SelectItem value="cardiology">
-                              CardiologistCardiologistCardiologist
+                              Cardiologist
                             </SelectItem>
-                            <SelectItem value="neurology">
-                              NeurologyNeurologyNeurology
-                            </SelectItem>
+                            <SelectItem value="neurology">Neurology</SelectItem>
                             <SelectItem value="pediatrics">
                               Pediatrics
                             </SelectItem>

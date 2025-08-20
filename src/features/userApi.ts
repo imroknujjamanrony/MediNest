@@ -8,9 +8,11 @@ export const  userApi=createApi({
     endpoints:(builder)=>({
         //get all the users
     getAllUsers:builder.query({
-        query:()=>'/dashboard/admin/users',
+        query:()=>'/users',
         providesTags: ['User']
     })
     })
 
 })
+
+export const  {getAllUsers}=userApi.endpoints;

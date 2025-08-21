@@ -1,5 +1,5 @@
 import { dbConnect } from "@/lib/dbConnect"
-import { collection, getCollection } from "@/lib/getCollection"
+
 import { User } from "@/models/user"
 
 import { NextResponse } from "next/server"

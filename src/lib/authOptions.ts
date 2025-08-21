@@ -1,9 +1,8 @@
-
-
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import type { NextAuthOptions } from "next-auth";
-import { collection, getCollection } from "./getCollection";
+
+import { User } from "@/models/user";
 
 
 export const authOptions: NextAuthOptions = {
@@ -59,11 +58,12 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async signIn({ user, account }) {
       try {
-        const users = await getCollection(collection.user_collection);
-        const existingUser = await users.findOne({ email: user.email });
+       
+        const existingUser=await User.findOne({ email: user.email });
+       
 
         if (!existingUser) {
-          await users.insertOne({
+          await User.create({
             email: user.email,
             name: user.name,
             role: user.role || "patient",

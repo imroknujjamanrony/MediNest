@@ -1,9 +1,9 @@
 import z from "zod";
 
 export const doctorFormSchema=z.object({
-     userId: z.string().min(1, "User ID is required"), // Add this
+    
      fullName: z.string().min(3, "Full name is required"),
-      email: z.string().email("Invalid email"),
+     
       phone: z.string().min(6, "Phone number required"),
       dob: z.string().nonempty("Date of birth required"),
       specialization: z.string().nonempty("Select specialization"),

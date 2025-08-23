@@ -23,6 +23,11 @@ export const doctorApi = createApi({
       providesTags: ["Doctor"],
     }),
 
+    getDoctorById:builder.query<DoctorFormApplication,string>({
+      query:(id)=>`/apply-for-doctor/${id}`,
+      providesTags:(result,error,id)=>[{type: "Doctor",id}]
+    }),
+
     // PATCH /api/apply-for-doctor/:id
     updateDoctorStatus: builder.mutation<
       DoctorFormApplication,
@@ -42,4 +47,5 @@ export const {
   useSaveDoctorApplicationMutation,
    useUpdateDoctorStatusMutation,
   useGetDoctorsQuery,
+  useGetDoctorByIdQuery
 } = doctorApi;

@@ -1,7 +1,9 @@
-export default function DoctorDetailsPage() {
-  return (
-    <div>
-      <h2> hello from doctor details page</h2>
-    </div>
-  );
+import DoctorDetails from "./DoctorDetails";
+
+export default function DoctorDetailsPage({
+  params,
+}: {
+  params: { id: string };
+}) {
+  return <DoctorDetails id={params.id} />;
 }

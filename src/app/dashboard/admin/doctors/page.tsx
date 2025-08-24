@@ -1,3 +1,4 @@
+//src/app/dashboard/admin/doctors/page.tsx
 import AppliedForDoctor from "../../../../components/dashboard/admin/AppliedForDoctor";
 export default function Doctors() {
   return (

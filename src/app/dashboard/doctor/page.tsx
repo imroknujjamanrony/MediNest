@@ -1,3 +1,4 @@
+//src/app/dashboard/doctor/page.tsx
 export default function DoctorPage() {
   return (
     <div>

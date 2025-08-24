@@ -1,3 +1,4 @@
+//src/app/dashboard/admin/page.tsx
 export default function AdminDashboardPage() {
   return (
     <div>

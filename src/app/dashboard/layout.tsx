@@ -1,3 +1,4 @@
+//src/app/dashboard/layout.tsx
 import DashboardAside from "@/components/dashboard/DashboardAside";
 import DashboardTop from "@/components/dashboard/DashboardTop";
 import { SidebarProvider } from "@/components/ui/sidebar";

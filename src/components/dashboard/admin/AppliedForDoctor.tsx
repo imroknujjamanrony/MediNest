@@ -27,7 +27,7 @@ import {
 import { toast } from "sonner";
 import { CheckCircle, XCircle, Clock } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { useEffect } from "react";
+
 import Link from "next/link";
 
 export default function AdminDoctorsPage() {
@@ -172,12 +172,8 @@ export default function AdminDoctorsPage() {
           </div>
         )}
       </div>
-
-      {/* Debug info - remove in production */}
-      <div className="mt-8 p-4 bg-gray-50 rounded-lg text-sm">
-        <h3 className="font-bold mb-2">Debug Info:</h3>
-        <pre className="text-xs">{JSON.stringify(data, null, 2)}</pre>
-      </div>
     </div>
   );
 }
+
+//need to re design the project

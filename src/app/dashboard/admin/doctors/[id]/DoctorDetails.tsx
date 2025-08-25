@@ -184,3 +184,5 @@ function DocLink({ label, href }: { label: string; href?: string }) {
     </div>
   );
 }
+
+//need to specify the type from any to specific type

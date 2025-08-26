@@ -1,3 +1,4 @@
+//src/types/doctorForm.ts
 export interface Schedule {
   day: string;
   startTime: string;

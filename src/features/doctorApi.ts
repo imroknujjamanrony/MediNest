@@ -1,7 +1,7 @@
 import { DoctorFormApplication } from "@/types/doctorForm";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-
+// its a feature slice
 export const doctorApi = createApi({
   reducerPath: "doctorApi",
   baseQuery: fetchBaseQuery({ baseUrl: "/api" }), 

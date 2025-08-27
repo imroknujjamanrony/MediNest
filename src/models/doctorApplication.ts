@@ -6,8 +6,7 @@ export interface ISchedule {
   endTime: string;
 }
 
-// Add this import if you have a User interface
-// import { IUser } from "./user";
+
 
 export interface IDoctorApplication extends Document {
   userId: Types.ObjectId; // Changed from string to Types.ObjectId

@@ -1,3 +1,4 @@
+//src/types/applyDoctor.ts
 export type FormValues = {
   fullName: string;
   email: string;

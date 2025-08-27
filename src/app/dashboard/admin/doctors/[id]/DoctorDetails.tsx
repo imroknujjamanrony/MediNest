@@ -55,7 +55,7 @@ export default function DoctorDetails({ id }: { id: string }) {
               label="Email"
               value={(data as any).email || data?.userId?.email}
             />
-            {/* type and validation gula reuse korte hobe  */}
+
             <Info label="Phone" value={data.phone} />
             <Info label="Specialization" value={data.specialization} />
             <Info label="Experience" value={`${data.experience ?? ""} years`} />
@@ -65,7 +65,9 @@ export default function DoctorDetails({ id }: { id: string }) {
             <Info label="Expiry Date" value={data.licenseExpiryDate} />
             <Info
               label="Consultation Fee"
-              value={`${(data as any).consultationFee ?? data.fee} BDT`}
+              value={`${
+                (data as any).consultationFee ?? data.consultationFee
+              } BDT`}
             />
             <Info
               label="Status"

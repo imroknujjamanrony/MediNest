@@ -17,6 +17,7 @@ import {
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import { toast } from "sonner";
 
 export default function RegisterForm() {
   const form = useForm<RegisterFormSchema>({
@@ -32,10 +33,12 @@ export default function RegisterForm() {
     console.log("✅ Form Data:", data);
     try {
       axios.post("/api/register", data);
+      toast.success("✅ Registration successful");
       console.log("✅ Registration successful");
       form.reset();
     } catch (error) {
       console.error("❌ Error in registration:", error);
+      toast.error("❌ Error in registration");
     }
   };
 

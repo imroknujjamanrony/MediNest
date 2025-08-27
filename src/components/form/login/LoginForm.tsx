@@ -16,6 +16,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { FaGoogle } from "react-icons/fa";
 import Link from "next/link";
+import { toast } from "sonner";
 
 export default function LoginForm() {
   const form = useForm<LoginFormValue>({
@@ -38,8 +39,10 @@ export default function LoginForm() {
 
     if (res?.error) {
       console.error("Login failed:", res.error);
+      toast.error("login failed");
     } else {
       console.log("✅ Login success");
+      toast.success("✅ Login successful");
     }
   };
 

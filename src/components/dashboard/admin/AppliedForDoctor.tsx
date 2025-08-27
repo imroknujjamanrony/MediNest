@@ -142,7 +142,7 @@ export default function AdminDoctorsPage() {
                       doctor.status === "approved"
                         ? "default"
                         : doctor.status === "rejected"
-                        ? "destructive"
+                        ? "default"
                         : "secondary"
                     }
                   >

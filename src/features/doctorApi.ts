@@ -1,5 +1,5 @@
 // import { DoctorFormApplication } from "@/types/doctorForm";
-import { DoctorBase } from "@/types/doctor";
+import { DoctorBase, DoctorResponse } from "@/types/doctor";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 // its a feature slice
@@ -9,7 +9,7 @@ export const doctorApi = createApi({
   tagTypes: ["Doctor"],
   endpoints: (builder) => ({
     // POST /api/doctors
-    saveDoctorApplication: builder.mutation<DoctorBase, DoctorBase>({
+    saveDoctorApplication: builder.mutation<DoctorResponse, DoctorBase>({
       query: (doctorData) => ({
         url: "/apply-for-doctor",
         method: "POST",
@@ -19,12 +19,12 @@ export const doctorApi = createApi({
     }),
 
     // GET /api/doctors
-    getDoctors: builder.query<DoctorBase[], void>({
+    getDoctors: builder.query<DoctorResponse[], void>({
       query: () => "/apply-for-doctor",
       providesTags: ["Doctor"],
     }),
 
-    getDoctorById:builder.query<DoctorBase,string>({
+    getDoctorById:builder.query<DoctorResponse,string>({
       query:(id)=>`/apply-for-doctor/${id}`,
       providesTags:(result,error,id)=>[{type: "Doctor",id}]
     }),

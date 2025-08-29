@@ -7,6 +7,7 @@ import { dbConnect } from "@/lib/dbConnect";
 import { DoctorApplication } from "@/models/doctorApplication";
 import { User } from "@/models/user";
 import { authOptions } from "@/lib/authOptions";
+import { DoctorResponse } from "@/types/doctor";
 
 /**
  * 🔹 GET /api/apply-for-doctor/[id]
@@ -30,7 +31,7 @@ export async function GET(
         select: "email role name",
         model: User,
       })
-      .lean();
+      .lean() as DoctorResponse | null;
 
     if (!doc) {
       return NextResponse.json({ error: "Not found" }, { status: 404 });
@@ -42,8 +43,8 @@ export async function GET(
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
-    return NextResponse.json(doc, { status: 200 });
-  } catch (err: any) {
+    return NextResponse.json<DoctorResponse>(doc, { status: 200 });
+  } catch (err) {
     console.error("GET /apply-for-doctor/[id] error:", err);
     return NextResponse.json({ error: err.message }, { status: 500 });
   }
@@ -79,7 +80,7 @@ export async function PATCH(
         id,
         { status },
         { new: true, session }
-      );
+      ) as DoctorResponse | null;
 
       if (!updatedApplication) {
         throw new Error("Doctor application not found");
@@ -100,13 +101,13 @@ export async function PATCH(
       await session.commitTransaction();
       session.endSession();
 
-      return NextResponse.json(updatedApplication, { status: 200 });
-    } catch (error: any) {
+      return NextResponse.json<DoctorResponse>(updatedApplication, { status: 200 });
+    } catch (error) {
       await session.abortTransaction();
       session.endSession();
       throw error;
     }
-  } catch (error: any) {
+  } catch (error) {
     console.error("PATCH Error:", error);
     return NextResponse.json(
       { message: "Failed to update doctor status", error: error.message },

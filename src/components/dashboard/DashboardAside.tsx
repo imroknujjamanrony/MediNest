@@ -33,8 +33,17 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+// ---- Types ----
+type Role = "admin" | "doctor" | "patient" | "staff";
+
+type MenuItem = {
+  title: string;
+  url: string;
+  icon: React.ElementType;
+};
+
 // ---- Menu Items ----
-const menuItems = {
+const menuItems: Record<Role, MenuItem[]> = {
   admin: [
     { title: "Home", url: "/dashboard/admin", icon: Home },
     { title: "Profile", url: "/dashboard/admin/profile", icon: User },
@@ -95,8 +104,8 @@ const menuItems = {
 
 export default function DashboardAside() {
   const { data: session } = useSession();
-  const role = (session?.user as { role: string })?.role || "admin"; // fallback admin for demo
-  const items = menuItems[role] || [];
+  const role: Role = (session?.user as { role?: Role })?.role || "admin"; // fallback admin
+  const items = menuItems[role];
 
   return (
     <Sidebar collapsible="icon" className="bg-white border-r shadow-md">

@@ -175,5 +175,3 @@ export default function AdminDoctorsPage() {
     </div>
   );
 }
-
-//need to re design the project

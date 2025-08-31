@@ -15,6 +15,11 @@ type Error={
   error:string;
 }
 
+
+type DuplicateError = {
+  code: number;
+  keyPattern?: Record<string, unknown>;
+};
 // GET /api/doctors
 export async function GET() {
   try {
@@ -86,8 +91,8 @@ export async function POST(req: Request) {
     return NextResponse.json(newApplication, { status: 201 });
   } catch (error) {
     // Handle duplicate key nicely
-    if (error?.code === 11000) {
-      const key = Object.keys(error.keyPattern || {})[0] || "field";
+    if ((error as DuplicateError)?.code === 11000) {
+      const key = Object.keys((error as DuplicateError).keyPattern || {})[0] || "field";
       return NextResponse.json(
         { error: `Duplicate value for ${key}` },
         { status: 409 }

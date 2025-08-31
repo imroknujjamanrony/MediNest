@@ -1,6 +1,6 @@
 
 
-//now it works for patch get and post 
+
 
 // app/api/doctors/route.ts
 import { NextResponse } from "next/server";
@@ -11,6 +11,9 @@ import { DoctorApplication } from "@/models/doctorApplication";
 import { authOptions } from "@/lib/authOptions";
 import { User } from "@/models/user";
 
+type Error={
+  error:string;
+}
 
 // GET /api/doctors
 export async function GET() {
@@ -35,9 +38,9 @@ export async function GET() {
       .lean();
 
     return NextResponse.json(doctors, { status: 200 });
-  } catch (error: any) {
+  } catch (error ) {
     console.error("GET /api/doctors Error:", error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({ error:(error as Error).error }, { status: 500 });
   }
 }
 
@@ -81,7 +84,7 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json(newApplication, { status: 201 });
-  } catch (error: any) {
+  } catch (error) {
     // Handle duplicate key nicely
     if (error?.code === 11000) {
       const key = Object.keys(error.keyPattern || {})[0] || "field";
@@ -91,6 +94,6 @@ export async function POST(req: Request) {
       );
     }
     console.error("POST /api/doctors Error:", error);
-    return NextResponse.json({ error: error.message }, { status: 400 });
+    return NextResponse.json({ error: (error as Error).error }, { status: 400 });
   }
 }

@@ -30,6 +30,11 @@ import { Badge } from "@/components/ui/badge";
 
 import Link from "next/link";
 
+type CustomError = {
+  err: string;
+  // message: string;
+};
+
 export default function AdminDoctorsPage() {
   const { data, isLoading, isError, error, refetch } = useGetDoctorsQuery();
   const [updateDoctorStatus] = useUpdateDoctorStatusMutation();
@@ -41,8 +46,8 @@ export default function AdminDoctorsPage() {
 
       // Refresh data after status change
       refetch();
-    } catch (err: any) {
-      toast.error(err.message || "Error updating status");
+    } catch (err) {
+      toast.error((err as CustomError)?.err || "Error updating status");
     }
   };
 

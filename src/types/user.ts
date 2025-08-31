@@ -6,3 +6,8 @@ export interface UserType {
   image?: string;
  
 }
+
+
+export type Error={
+  error:string;
+}

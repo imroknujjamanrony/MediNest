@@ -10,10 +10,8 @@ import { dbConnect } from "@/lib/dbConnect";
 import { DoctorApplication } from "@/models/doctorApplication";
 import { authOptions } from "@/lib/authOptions";
 import { User } from "@/models/user";
+import { Error } from "@/types/user";
 
-type Error={
-  error:string;
-}
 
 
 type DuplicateError = {

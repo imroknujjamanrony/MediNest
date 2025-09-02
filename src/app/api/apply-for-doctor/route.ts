@@ -58,9 +58,7 @@ export async function POST(req: Request) {
     }
 
     const body = await req.json();
-//kaj korteche na
 
-    // --- Server-side normalization / security ---
     // client theke asha email/userId trust korbo na
     const {
       // email: _ignoreEmail,

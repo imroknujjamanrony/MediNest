@@ -135,7 +135,7 @@ import { Error as AppError } from "@/types/user";
  * Fetch doctor application details by ID
  */
 export async function GET(
-  _req: Request,
+  request: Request, 
   context: { params: { id: string } }
 ) {
   try {

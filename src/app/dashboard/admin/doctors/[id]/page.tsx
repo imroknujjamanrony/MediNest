@@ -1,9 +1,12 @@
 import DoctorDetails from "./DoctorDetails";
 
-export default function DoctorDetailsPage({
+export default async function DoctorDetailsPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  return <DoctorDetails id={params.id} />;
+  // Await the params Promise to get the actual values
+  const { id } = await params;
+
+  return <DoctorDetails id={id} />;
 }
